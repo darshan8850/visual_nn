@@ -1,2 +1,3 @@
 train_dict.pkl
 digits_mnist.model
+layer_outs
