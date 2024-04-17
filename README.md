@@ -5,6 +5,7 @@ This project focuses on visualizing the inner workings of neural networks by gen
 ## Description
 
 Neural networks are powerful models for learning complex patterns from data. Visualizing the activations of hidden layers helps understand how these networks transform input data through various stages of computation. This project demonstrates this process using a trained neural network on the MNIST dataset.
+![final](https://github.com/darshan8850/visual_nn/assets/83301891/8f815fdc-5dba-4dcc-9024-8cc5944638e8)
 
 ## Usage
 
