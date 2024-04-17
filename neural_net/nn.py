@@ -3,6 +3,8 @@ import pickle
 import copy
 import numpy as np
 
+train_dict={}
+
 class Layer_Dense:
     
     def __init__(self,n_inputs,n_neurons,weight_regularizer_l1=0,weight_regularizer_l2=0,bias_regularizer_l1=0,bias_regularizer_l2=0):
@@ -305,9 +307,11 @@ class Model:
             if train_steps * batch_size < len(X):
                 train_steps += 1
         for epoch in range(1, epochs+1):
+            train_dict[epoch] = {}
             self.loss.new_pass()
             self.accuracy.new_pass()
             for step in range(train_steps):
+                train_dict[epoch][step] = {}
                 if batch_size is None:
                     batch_X = X
                     batch_y = y
@@ -325,6 +329,15 @@ class Model:
                 self.optimizer.pre_update_params()
                 for n, layer in enumerate(self.trainable_layers):
                     self.optimizer.update_params(layer)
+                    train_dict[epoch][step][n] = {}
+                    train_dict[epoch][step][n]["weights"] = layer.weights.copy()
+                    train_dict[epoch][step][n]["biases"] = layer.biases.copy()
+                    train_dict[epoch][step][n]["dweights"] = layer.dweights.copy()
+                    train_dict[epoch][step][n]["dbiases"] = layer.dbiases.copy()
+                    train_dict[epoch][step][n]["weight_momentums"] = layer.weight_momentums.copy()
+                    train_dict[epoch][step][n]["bias_momentums"] = layer.bias_momentums.copy()
+
+
                 self.optimizer.post_update_params()
                 if not step % print_every or step == train_steps - 1:
                     print(f'step: {step}, ' +
